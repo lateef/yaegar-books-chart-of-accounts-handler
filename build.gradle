@@ -1,14 +1,33 @@
+plugins {
+    id 'net.ltgt.apt' version '0.10'
+    id 'net.researchgate.release' version '2.6.0'
+}
+
 group 'com.yaegar.books'
-version '1.0.0-SNAPSHOT'
+
+release {
+    tagTemplate = "${project.name}-\$version"
+}
 
 apply plugin: 'java'
+apply plugin: 'idea'
 
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    maven {
+        url 'https://s3.eu-central-1.amazonaws.com/dynamodb-local-frankfurt/release'
+    }
 }
 
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.4.1'
 }
+
+build {
+    dependsOn('stacks:genStacks')
+}
+
+clean.dependsOn('stacks:cleanStacks')

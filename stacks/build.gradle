@@ -1,0 +1,23 @@
+group 'com.yaegar.books'
+
+task cleanStacks(type: Exec) {
+    commandLine '/usr/bin/make'
+    args 'clean'
+}
+
+task genStacks(type: Exec) {
+    commandLine '/usr/bin/make'
+}
+
+task applyStacks(type: Exec) {
+    commandLine '/usr/bin/make'
+    if (project.hasProperty("env")) {
+        args 'apply-stacks', "ENV=$env"
+    }
+}
+
+task uploadToS3(type: Exec) {
+    commandLine '/usr/bin/make'
+    args 'upload-to-s3', "filename=${rootProject.name}-${rootProject.version}.zip"
+}
+

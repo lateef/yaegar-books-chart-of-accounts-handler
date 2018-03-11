@@ -1,2 +1,3 @@
 rootProject.name = 'yaegar-books-chart-of-accounts-handler'
+include 'stacks'
 
